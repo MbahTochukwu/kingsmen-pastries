@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -10,10 +12,18 @@ const authRoutes = require('./routes/authRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 
 
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://mbahtochukwu75:08PeRqs64EuPLrpx@mbah.xxe48ev.mongodb.net/?retryWrites=true&w=majority&appName=MBAH')
-.then(() => console.log("MongoDB connected!"))
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/kingsmen-pastries';
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
+
 
 
 
