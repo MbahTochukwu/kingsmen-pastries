@@ -11,8 +11,6 @@ const orderRoutes = require('./routes/orderRoutes.js');
 const authRoutes = require('./routes/authRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 
-
-const mongoose = require('mongoose');
 require('dotenv').config();
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/kingsmen-pastries';
