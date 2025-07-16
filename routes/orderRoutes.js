@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const order = new Order({
     customerName: req.body.customerName,
+    email: req.body.email,
     address: req.body.address,
     phone: req.body.phone,
     items: req.body.items,
@@ -30,6 +31,19 @@ router.post('/', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+router.get('/user/:email', async (req, res) => {
+  const userEmail = req.params.email;
+
+  try {
+    const orders = await Order.find({ email: userEmail }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch orders" });
+  }
+});
+
 
 router.patch('/:id/fulfill', async (req, res) => {
   try {

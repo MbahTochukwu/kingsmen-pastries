@@ -54,36 +54,66 @@
 // });
 
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const ordersContainer = document.getElementById("orders-container");
+// document.addEventListener("DOMContentLoaded", async () => {
+//   const ordersContainer = document.getElementById("orders-container");
 
-  try {
-    const response = await fetch("https://kingsman-pastries-backend.onrender.com/api/orders");
-    if (!response.ok) throw new Error("Failed to fetch orders");
+//   try {
+//     const response = await fetch("https://kingsman-pastries-backend.onrender.com/api/orders");
+//     if (!response.ok) throw new Error("Failed to fetch orders");
 
-    const orders = await response.json();
+//     const orders = await response.json();
     
-    ordersContainer.innerHTML = ""; // clear loading text
+//     ordersContainer.innerHTML = ""; // clear loading text
 
-    if (orders.length === 0) {
-      ordersContainer.textContent = "No past orders found.";
-    } else {
-      orders.forEach(order => {
+//     if (orders.length === 0) {
+//       ordersContainer.textContent = "No past orders found.";
+//     } else {
+//       orders.forEach(order => {
+//         const div = document.createElement("div");
+//         div.classList.add("order");
+//         div.innerHTML = `
+//           <h3>${order.customerName} (${order.phone})</h3>
+//           <p><strong>Total:</strong> ₦${order.total}</p>
+//           <ul>
+//             ${order.items.map(item => `<li>${item.qty} x ${item.item} @ ₦${item.price}</li>`).join("")}
+//           </ul>
+//           <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
+//         `;
+//         ordersContainer.appendChild(div);
+//       });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     ordersContainer.textContent = "Error loading orders.";
+//   }
+// });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const userEmail = localStorage.getItem("userEmail"); // ensure you set this on login
+
+  fetch(`https://kingsman-pastries-backend.onrender.com/api/orders/user/${userEmail}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("User Orders:", data);
+      const ordersContainer = document.getElementById("orders-container");
+      ordersContainer.innerHTML = "";
+
+      data.forEach(order => {
         const div = document.createElement("div");
-        div.classList.add("order");
+        div.classList.add("order-card");
         div.innerHTML = `
-          <h3>${order.customerName} (${order.phone})</h3>
-          <p><strong>Total:</strong> ₦${order.total}</p>
+          <h3>Order from ${new Date(order.createdAt).toLocaleString()}</h3>
+          <p>Total: ₦${order.total}</p>
           <ul>
-            ${order.items.map(item => `<li>${item.qty} x ${item.item} @ ₦${item.price}</li>`).join("")}
+            ${order.items.map(i => `<li>${i.item} x ${i.qty}</li>`).join("")}
           </ul>
-          <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
         `;
         ordersContainer.appendChild(div);
       });
-    }
-  } catch (error) {
-    console.error(error);
-    ordersContainer.textContent = "Error loading orders.";
-  }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Failed to load your orders.");
+    });
 });
