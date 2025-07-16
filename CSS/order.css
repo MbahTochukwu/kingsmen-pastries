@@ -171,3 +171,29 @@ h3 {
   border-color: #a67c52;
   outline: none;
 }
+
+@media (max-width: 600px) {
+  .order-container {
+    padding: 1rem;
+  }
+
+  .order-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-section select,
+  .order-section input {
+    width: 100%;
+  }
+
+  .order-summary {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px;
+  }
+}

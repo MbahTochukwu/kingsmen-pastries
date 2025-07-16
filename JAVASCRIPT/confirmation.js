@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       list.appendChild(li);
     });
   
-    // Optional: Clear order info from localStorage
-    // localStorage.removeItem('finalOrder');
+  
   });
   

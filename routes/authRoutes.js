@@ -71,7 +71,7 @@ router.post('/forgot-password', async (req, res) => {
 
     await user.save();
 
-    const resetURL = `http://localhost:3000/reset-password/${token}`;
+    const resetURL = `https://kingsmen-pastries-backend.onrender.com/reset-password/${token}`;
 
     const mailOptions = {
       to: user.email,

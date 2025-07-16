@@ -62,42 +62,7 @@
     </form>
   </div>
 
- 
 
-  <script>
-    const storedOrder = JSON.parse(localStorage.getItem("orderData")) || {};
-    const storedDelivery = localStorage.getItem("deliverySelected") === "true";
-  
-    let subtotal = 0;
-  
-    if (storedOrder && storedOrder.items) {
-      for (const item of storedOrder.items) {
-        subtotal += item.price * item.quantity;
-      }
-    }
-  
-    document.getElementById("subtotal").textContent = subtotal;
-  
-   
-    const deliveryFee = storedDelivery ? 3500 : 0;
-    if (storedDelivery) {
-      document.getElementById("deliveryFeeContainer").style.display = "block";
-      document.getElementById("deliveryFee").textContent = deliveryFee;
-    }
-  
-   
-    const total = subtotal + deliveryFee;
-    document.getElementById("totalAmount").textContent = total;
-
-
-
-const totalAmount = parseFloat(document.getElementById("grandTotal").textContent);
-localStorage.setItem("finalTotal", totalAmount);
-window.location.href = "delivery-details.html";
-
-
-  
-  </script>
   <script src="https://js.paystack.co/v1/inline.js"></script>
    <script src="../JAVASCRIPT/checkout.js"></script>
 
