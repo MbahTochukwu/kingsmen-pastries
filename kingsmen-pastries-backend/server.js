@@ -3,10 +3,6 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
-// app.use(cors({
-//   origin: ['http://127.0.0.1:5501', 'http://localhost:5501', 'https://kingsmen-pastries.onrender.com'],
-//   credentials: true
-// }));
 
 app.use(cors({
   origin: "*",
