@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { protect, admin } = require('../kingsmen-pastries-backend/middleware/authMiddleware');
-const Order = require('../kingsmen-pastries-backend/models/order');
+const { protect, admin } = require('../middleware/authMiddleware');
+const Order = require('../models/order');
 
 router.get('/', async (req, res) => {
   try {
